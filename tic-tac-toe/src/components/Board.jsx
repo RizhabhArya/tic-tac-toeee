@@ -21,6 +21,7 @@ function Board() {
 
   return (
     <div>
+
       <div className="board">
         {[...Array(3)].map((_, rowIndex) => (
           <div className="row" key={rowIndex}>
@@ -44,11 +45,9 @@ function Board() {
             ))}
           </div>
         ))}
-        <div className="winner">
-          {win && <h1 className="winner-text">Winner {win} </h1>}
-          {count === 9 && <h1 className="winner-text">DRAW</h1>}
-        </div>
+        
       </div>
+
       <Reset
         setCount={setCount}
         setWin={setWin}
@@ -57,6 +56,10 @@ function Board() {
         setWinPattern={setWinPattern}
         setBoard={setBoard} // ✅ Reset the entire board instead of a single sign
       />
+                <div className="winner">
+          {win && <h1 className="winner-text">Winner {win} </h1>}
+          {count === 9 && <h1 className="winner-text">DRAW</h1>}
+        </div>
     </div>
   );
 }
