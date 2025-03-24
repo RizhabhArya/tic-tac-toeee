@@ -31,7 +31,7 @@
     color: black;
 }
 
-@media (max-width: 200px) {
+@media (max-width: 400px) {
     .board {
         width: 80vw;
         height: 80vw;
