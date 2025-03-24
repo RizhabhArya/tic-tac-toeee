@@ -1,51 +1,40 @@
-import { useState } from "react";
 import "../stylesheets/Square.css";
 
-function Square({ count,setCount, win, setWin, turn, setTurn, row, col, chkarray, winPattern, setWinPattern }) {
-  const [sign, setSign] = useState(null);
+function Square({ board, setBoard, turn, setTurn, row, col, win, setWin, chkarray, winPattern, setWinPattern, setCount, count }) {
 
   const handleClick = () => {
-    if (sign || win) return; // Prevent overwriting moves or playing after win
-    setSign(turn);
+    if (board[row][col] || win) return; // Prevent overwriting moves or playing after win
+
+    const newBoard = board.map((r) => [...r]); // Copy board
+    newBoard[row][col] = turn; // Set the clicked square
+    setBoard(newBoard); // Update state
+
     chkarray.current.push([row, col, turn]); // ✅ Store move in shared array
-    setCount(count => count + 1);
-    checkWinner();
+    setCount(count + 1);
+    checkWinner(newBoard); // Pass new board for winner check
     setTurn(turn === "X" ? "O" : "X"); // Switch turn
   };
 
-  const winarray = [
-    // Row Wins
-    [[0, 0, "X"], [0, 1, "X"], [0, 2, "X"]],
-    [[1, 0, "X"], [1, 1, "X"], [1, 2, "X"]],
-    [[2, 0, "X"], [2, 1, "X"], [2, 2, "X"]],
-    [[0, 0, "O"], [0, 1, "O"], [0, 2, "O"]],
-    [[1, 0, "O"], [1, 1, "O"], [1, 2, "O"]],
-    [[2, 0, "O"], [2, 1, "O"], [2, 2, "O"]],
-    // Column Wins
-    [[0, 0, "X"], [1, 0, "X"], [2, 0, "X"]],
-    [[0, 1, "X"], [1, 1, "X"], [2, 1, "X"]],
-    [[0, 2, "X"], [1, 2, "X"], [2, 2, "X"]],
-    [[0, 0, "O"], [1, 0, "O"], [2, 0, "O"]],
-    [[0, 1, "O"], [1, 1, "O"], [2, 1, "O"]],
-    [[0, 2, "O"], [1, 2, "O"], [2, 2, "O"]],
-    // Diagonal Wins
-    [[0, 0, "X"], [1, 1, "X"], [2, 2, "X"]],
-    [[0, 2, "X"], [1, 1, "X"], [2, 0, "X"]],
-    [[0, 0, "O"], [1, 1, "O"], [2, 2, "O"]],
-    [[0, 2, "O"], [1, 1, "O"], [2, 0, "O"]]
-  ];
+  function checkWinner(boardState) {
+    const winarray = [
+      // Row Wins
+      [[0, 0], [0, 1], [0, 2]],
+      [[1, 0], [1, 1], [1, 2]],
+      [[2, 0], [2, 1], [2, 2]],
+      // Column Wins
+      [[0, 0], [1, 0], [2, 0]],
+      [[0, 1], [1, 1], [2, 1]],
+      [[0, 2], [1, 2], [2, 2]],
+      // Diagonal Wins
+      [[0, 0], [1, 1], [2, 2]],
+      [[0, 2], [1, 1], [2, 0]],
+    ];
 
-  function checkWinner() {
-    for (let winPattern of winarray) {
-      if (winPattern.every(winMove =>
-        chkarray.current.some(move =>
-          move[0] === winMove[0] && move[1] === winMove[1] && move[2] === winMove[2]
-        )
-      )) {
-        console.log(`Winner is: ${winPattern[0][2]}`);
-        console.log("win pattern: ", winPattern);
-        setWin(winPattern[0][2]); // ✅ Store winner
-        setWinPattern(winPattern.map(([x, y]) => `${x}-${y}`)); // Store winning positions
+    for (let pattern of winarray) {
+      const [a, b, c] = pattern;
+      if (boardState[a[0]][a[1]] && boardState[a[0]][a[1]] === boardState[b[0]][b[1]] && boardState[a[0]][a[1]] === boardState[c[0]][c[1]]) {
+        setWin(boardState[a[0]][a[1]]); // ✅ Store winner
+        setWinPattern(pattern.map(([x, y]) => `${x}-${y}`)); // Store winning positions
         return;
       }
     }
@@ -62,7 +51,7 @@ function Square({ count,setCount, win, setWin, turn, setTurn, row, col, chkarray
       }}
       onClick={handleClick}
     >
-      <h1 className="sign">{sign}</h1>
+      <h1 className="sign">{board[row][col]}</h1> {/* ✅ Display board state */}
     </button>
   );
 }

@@ -1,22 +1,43 @@
-.board{
-    background-color:rgba(0, 255, 255, 0.132);
-    height: 50vh;
-    width: 50vh;
-    margin: 2rem;
+.board {
+    background-color: rgba(0, 255, 255, 0.132);
+    width: min(90vw, 300px); /* Responsive width */
+    height: min(90vw, 300px); /* Responsive height */
+    margin: 2rem auto;
     padding: 1rem;
     border-radius: 1rem;
     border-width: 1px;
     border-color: rgba(255, 0, 0, 0.888);
     border-style: solid;
-    display:flex;
-    gap: 0.01%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Ensures a 3x3 grid */
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
 }
 
-.row{
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
     margin: 0.6rem;
-
+    gap: 1rem;
 }
 
-.winner{
-    margin: 2rem;
+.winner {
+    margin: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+}
+
+@media (max-width: 400px) {
+    .board {
+        width: 80vw;
+        height: 80vw;
+    }
+
+    .winner {
+        font-size: 4vw;
+    }
 }

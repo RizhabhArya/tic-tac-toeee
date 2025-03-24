@@ -1,0 +1,21 @@
+.reset {
+    font-size: large;
+    font-family: monospace;
+    padding: 10px;
+    background-color: hotpink;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+}
+
+.reset:hover {
+    cursor: pointer;
+    background-color: pink;
+}
+
+@media (max-width: 400px) {
+    .reset {
+        font-size: medium;
+        padding: 8px;
+    }
+}
