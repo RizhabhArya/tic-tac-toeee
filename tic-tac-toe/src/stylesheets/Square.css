@@ -1,0 +1,18 @@
+.square{
+    background-color: whitesmoke;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 1rem;
+    margin-top: 0.7rem;
+    border-style:ridge;
+    border-color: cyan;
+}
+
+.square:hover{
+    cursor: pointer;
+    background-color:rgba(255, 255, 255, 0.429);
+}
+
+.sign{
+    color:black;
+}

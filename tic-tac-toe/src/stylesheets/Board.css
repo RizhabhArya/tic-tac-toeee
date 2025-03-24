@@ -1,0 +1,22 @@
+.board{
+    background-color:rgba(0, 255, 255, 0.132);
+    height: 50vh;
+    width: 50vh;
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border-width: 1px;
+    border-color: rgba(255, 0, 0, 0.888);
+    border-style: solid;
+    display:flex;
+    gap: 0.01%;
+}
+
+.row{
+    margin: 0.6rem;
+
+}
+
+.winner{
+    margin: 2rem;
+}
